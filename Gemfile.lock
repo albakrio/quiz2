@@ -61,7 +61,9 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.4)
     byebug (11.0.1)
+    coderay (1.1.2)
     concurrent-ruby (1.1.5)
+    cowsay (0.3.0)
     crass (1.0.5)
     erubi (1.9.0)
     ffi (1.11.3)
@@ -92,6 +94,11 @@ GEM
     nokogiri (1.10.7)
       mini_portile2 (~> 2.4.0)
     pg (1.1.4)
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    pry-rails (0.3.9)
+      pry (>= 0.10.4)
     puma (4.3.1)
       nio4r (~> 2.0)
     rack (2.0.8)
@@ -176,9 +183,11 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
+  cowsay
   jbuilder (~> 2.7)
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
+  pry-rails
   puma (~> 4.1)
   rails (~> 6.0.2, >= 6.0.2.1)
   sass-rails (>= 6)
@@ -189,7 +198,7 @@ DEPENDENCIES
   webpacker (~> 4.0)
 
 RUBY VERSION
-   ruby 2.5.1p57
+   ruby 2.6.3p62
 
 BUNDLED WITH
    2.0.2
