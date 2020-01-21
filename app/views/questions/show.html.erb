@@ -1,9 +1,0 @@
-<h1>Question</h1>
-<h1><%= @question.title %></h1>
-<p><%= @question.body %></p>
-<p>Asked <%= time_ago_in_words(@question.created_at) %> ago</p>
-<p>Last edited <%= time_ago_in_words(@question.updated_at) %></p>
-<small> <%= pluralize(@question.view_count,"time") %></small><br/>
-<%= link_to("Delete", question_path, method: :delete, data:{confirm:'Are you sure?' }) %>
-<br />
-<%= link_to 'Edit', edit_question_path(@question.id)%>

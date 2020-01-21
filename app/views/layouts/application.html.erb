@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>BootcampNovember19AwesomeAnswers</title>
+    <title>Idea Factory</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,19 +10,36 @@
   </head>
 
   <body>
-    <nav>
-      <%# <a href="/">Home</a> %>
-      <%= link_to 'Home', root_path %>
-      |
-      <%= link_to 'All Questions', questions_path %>
-      |
-      <%= link_to 'New Question', new_question_path %>
-      |
-      <%= link_to 'Contact Us', contacts_new_path %>
-    </nav>
-    <p>
-    <%= flash[:notice] || flash[:alert]%>
-    </p>
+  <nav>
+  <div class="branding">
+  <%= link_to image_tag('idea.png', size: "60"), root_path %> <br>
+  <%= link_to "Idea Factory", root_path %>
+  </div>
+  
+
+  <div class="menu">
+  <%#= flash[:notice] || flash[:alert] %>
+      <% if user_signed_in?%>
+        Hello <%= current_user.name %>     &emsp;
+        <%= link_to "Sign Out", session_path, method: :delete,
+        data: {confirm: "Are you sure you want to log out?"}%>
+      <%else%>
+        <%= link_to "Login", new_session_path %> &emsp;
+        <%= link_to "Sign Up", new_user_path %>
+      <% end %>
+    <br> <br>
+    <button type="button" class="btn-outline-dark">
+    <%= link_to 'New Idea', new_idea_path %>
+    </button>
+    <% flash.each do |type, message| %>
+      <div class="flash flash-<%= type %>">
+        <%= message %>
+      </div>
+    <% end %>
+    </div>
+
+  </nav>
+
     <%= yield %>
   </body>
 </html>

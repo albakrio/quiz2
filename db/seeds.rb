@@ -6,16 +6,49 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Question.destroy_all
+NUM_IDEAS = 25
 
-200.times do
-  Question.create(
-    title: Faker::Hacker.say_something_smart,
-    body: Faker::ChuckNorris.fact,
-    view_count: rand(100_000),
-    created_at: Faker::Date.backward(days:365 * 5),
-    updated_at: Faker::Date.backward(days:365 * 5)
+Like.delete_all
+Review.delete_all
+Idea.delete_all
+User.delete_all
+
+PASSWORD = "omar123"
+
+25.times do
+  name = Faker::Name.name
+  User.create(
+    name: name,
+    email: "#{name.downcase}@#{Faker::Movies::LordOfTheRings.location}.com",
+    password: PASSWORD
   )
 end
 
-puts Cowsay.say("Generated #{Question.count} questions", :frogs)
+users = User.all
+
+NUM_IDEAS.times do
+  created_at = Faker::Date.backward(days: 365)
+  q = Idea.create(
+    # Faker is a ruby module. We access classes or
+    # other modules inside of a module with the
+    # `::` syntax. Here Hacker is a class within
+    # the Faker module.
+    title: Faker::Hacker.say_something_smart,
+    body: Faker::ChuckNorris.fact,
+    created_at: created_at,
+    updated_at: created_at,
+    user: users.sample
+  )
+  if q.valid?
+    q.reviews = rand(0..15).times.map do
+      Review.new(
+        body: Faker::GreekPhilosophers.quote,
+        user: users.sample
+      )
+    end
+    q.likers = users.shuffle.slice(0, rand(users.count))
+  end
+end
+
+idea = Idea.all
+

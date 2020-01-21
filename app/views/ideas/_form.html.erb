@@ -1,0 +1,21 @@
+
+<% if @idea.errors.any? %>
+  <ul>
+    <% @idea.errors.full_messages.each do |msg|%>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%# https://guides.rubyonrails.org/form_helpers.html %>
+<%= form_for @idea do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div>
+    <%= f.label :body %>
+    <%= f.text_field :body %>
+  </div>
+  <%= f.submit class: "btn btn-primary" %>
+<% end %>

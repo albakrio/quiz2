@@ -1,0 +1,24 @@
+<div class="card-container">
+<% @ideas.each do |idea|  %>
+    <hr>
+    <h4><%= link_to idea.title, idea_path(idea) %></h4>
+    <p><%= idea.body %></p>
+
+    <div class= "likes">
+    <p>By <%= idea.user.name  || 'DELETED'%>  <% like = idea.likes.find_by(user: current_user) %>
+    <% if like.present? && can?(:destroy, like) %>
+    <button type="button" class="btn-outline-dark">
+      <%= link_to "Liked", like_path(like), method: :delete %>
+      </button>
+    <% elsif can?(:like, idea)%>
+    <button type="button" class="btn-outline-dark">
+      <%= link_to "Like", idea_likes_path(idea) , method: :post %>
+      </button></p>
+  <% end %>
+  <small>
+    <%= pluralize(idea.likes.count, "like") %>
+  </small>
+  </div>
+<% end %>
+</div>
+<hr>
